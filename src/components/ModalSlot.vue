@@ -3,11 +3,14 @@
         ene ste caso sirve para cerrar el modal cuando clicamos solamente en el elemento div.backdrop, o fuera del div.modal, en este caso el modifier es self -->
     <div class="backdrop" @click.self="closeModal()">
 
-        <div class="modal" :class="{ sale: theme === 'sale' }">
-            <h1>{{ header }}</h1>
+        <div class="modal">
+            <slot>Texto por defecto si no se le pasa contenido al invocar el componente ModalSlot</slot>
 
-            <p>{{ text }}</p>
-            <span>{{ testString }}</span>
+            <!-- Referencia al slot link del component App-->
+            <div>
+                <slot name="link"></slot>
+            </div>
+
         </div>
 
     </div>
@@ -15,12 +18,6 @@
 
 <script>
     export default{
-        props:[
-            'header',
-            'text',
-            'testString',
-            'theme'
-        ],
         methods: {
             //El emit lanza un evento custom al componente parent para cualquier cosa que se quiera hacer, en este caso un evento llamado 'close' para cerrar el modal
             closeModal(){
